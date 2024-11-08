@@ -104,7 +104,7 @@ export default function PokemonList() {
         </div>
 
         {/* Pagination avec Material-UI */}
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center  py-5">
           <Pagination
             count={totalPages}
             page={currentPage}
