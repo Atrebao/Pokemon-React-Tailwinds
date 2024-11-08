@@ -37,8 +37,16 @@ export default function PokemonForm({ isEditForm, pokemon }) {
       console.log(err);
       toast.error(err);
     }
-    console.log("formData", formData);
-  }, []);
+    if (pokemon) {
+      setFormData({
+      picture: { value: pokemon ? pokemon.picture : "", isValid: true },
+      name: { value: pokemon ? pokemon.name : "", isValid: true },
+      hp: { value: pokemon ? pokemon.hp : "", isValid: true },
+      cp: { value: pokemon ? pokemon.cp : "", isValid: true },
+      types: { value: pokemon ? pokemon.types : [], isValid: true },
+    })
+    }
+  }, [pokemon]);
 
   const typesPokemon = [
     "Plante",
@@ -184,8 +192,10 @@ export default function PokemonForm({ isEditForm, pokemon }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const isFormValid = validateForm();
+    
     if (isFormValid) {
       const tempNewPokemon = {
+        id : pokemon.id,
         name: formData.name.value,
         picture: formData.picture.value,
         hp: formData.hp.value,
@@ -197,9 +207,9 @@ export default function PokemonForm({ isEditForm, pokemon }) {
         try {
           updatePokemon(tempNewPokemon)
             .then((response) => {
-              if (response.status === 201) {
+              if (response.data) {
                 toast.success("Mise à jour succès");
-                console.log("Editer");
+                navigate("/");
               }
             })
             .catch((err) => {
@@ -275,7 +285,7 @@ export default function PokemonForm({ isEditForm, pokemon }) {
                 required
                 onChange={(e) => handleUpdate("picture", e.target.value)}
               />
-              {formData.name.error && (
+              {formData.picture.error && (
                 <small className="text-red-500">{formData.picture.error}</small>
               )}
             </div>
