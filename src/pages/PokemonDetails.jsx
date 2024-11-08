@@ -6,8 +6,8 @@ import formatDate from "../helpers/FormatDate.js";
 
 export default function PokemonDetails() {
   const location = useLocation();
+  const navigate = useNavigate();
   const pokemon = location.state;
-  console.log(pokemon);
   return (
     <div className="w-full min-h-screen bg-slate-100 flex flex-col items-center">
       <h1 className="text-center text-3xl font-light md:text-6xl lg:text-7xl py-6 md:py-8 lg:py-10">
@@ -29,6 +29,8 @@ export default function PokemonDetails() {
             color="#fff"
             size={45}
             className="p-2 rounded-2xl bg-teal-600 cursor-pointer  "
+            onClick={ ()=> navigate(`/pokemon/edit/${pokemon.id}`,{state: pokemon.id})}
+            
           />
         </div>
         <div className="text-center mt-6">
@@ -54,7 +56,7 @@ export default function PokemonDetails() {
                   <td>{pokemon.hp}</td>
                   <td>{pokemon.cp}</td>
                   <td>{pokemon.types.map((type, index) =>(
-                    <span className="p-1 px-3 text-center rounded-full text-sm md:text-base"  style={{ backgroundColor: formatType(type) }}> {type}</span>
+                    <span key={index} className="p-1 px-3 text-center rounded-full text-sm md:text-base"  style={{ backgroundColor: formatType(type) }}> {type}</span>
                   ))}</td>
                   <td>{formatDate(pokemon.created)}</td>
                 </tr>
