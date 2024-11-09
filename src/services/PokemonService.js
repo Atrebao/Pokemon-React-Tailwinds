@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001/pokemons";
+export const BASE_URL = "http://localhost:3001/pokemons";
 
 // Récupérer la liste de tous les Pokémons
 export const getPokemons = async () => {
